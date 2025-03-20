@@ -176,13 +176,23 @@ void USBHIDParser::control(const Transfer_t *transfer)
 		if (_rx1 == nullptr) {
 			_rx1 = _bigBufferEnd - in_size;
 			_rx2 = _rx1 - in_size;
-			_bigBufferEnd = _rx2;
+			_rx3 = _rx2 - in_size;
+			_rx4 = _rx3 - in_size;
+			_rx5 = _rx4 - in_size;
+			_rx6 = _rx5 - in_size;
+			_rx7 = _rx6 - in_size;
+			_rx8 = _rx7 - in_size;
+			_bigBufferEnd = _rx8;
 		}
 
 		queue_Data_Transfer(in_pipe, _rx1, in_size, this);
 		if (_rx2) queue_Data_Transfer(in_pipe, _rx2, in_size, this);
 		if (_rx3) queue_Data_Transfer(in_pipe, _rx3, in_size, this);
 		if (_rx4) queue_Data_Transfer(in_pipe, _rx4, in_size, this);
+		if (_rx5) queue_Data_Transfer(in_pipe, _rx5, in_size, this);
+		if (_rx6) queue_Data_Transfer(in_pipe, _rx6, in_size, this);
+		if (_rx7) queue_Data_Transfer(in_pipe, _rx7, in_size, this);
+		if (_rx8) queue_Data_Transfer(in_pipe, _rx8, in_size, this);
 
 		if (device->idVendor == 0x054C && 
 				((device->idProduct == 0x0268) || (device->idProduct == 0x042F)/* || (device->idProduct == 0x03D5)*/)) {
@@ -339,17 +349,26 @@ void USBHIDParser::setTXBuffers(uint8_t *buffer1, uint8_t *buffer2, uint8_t cb,
 }
 
 void USBHIDParser::setRXBuffers(uint8_t *buffer1, uint8_t *buffer2, uint8_t cb,
-	uint8_t *buffer3, uint8_t* buffer4)
+	uint8_t *buffer3, uint8_t* buffer4, uint8_t* buffer5, uint8_t* buffer6,
+	uint8_t* buffer7, uint8_t* buffer8)
 {
 	_rx1 = buffer1;
 	_rx2 = buffer2;
 	_rx3 = buffer3;
 	_rx4 = buffer4;
+	_rx5 = buffer5;
+	_rx6 = buffer6;
+	_rx7 = buffer7;
+	_rx8 = buffer8;
 	#if defined(__IMXRT1062__) // Teensy 4.x
     if ((uint32_t)_rx1 >= 0x20200000u) arm_dcache_flush_delete(_rx1, in_size);
     if ((uint32_t)_rx2 >= 0x20200000u) arm_dcache_flush_delete(_rx2, in_size);
     if ((uint32_t)_rx3 >= 0x20200000u) arm_dcache_flush_delete(_rx3, in_size);
     if ((uint32_t)_rx4 >= 0x20200000u) arm_dcache_flush_delete(_rx4, in_size);
+    if ((uint32_t)_rx5 >= 0x20200000u) arm_dcache_flush_delete(_rx5, in_size);
+    if ((uint32_t)_rx6 >= 0x20200000u) arm_dcache_flush_delete(_rx6, in_size);
+    if ((uint32_t)_rx7 >= 0x20200000u) arm_dcache_flush_delete(_rx7, in_size);
+    if ((uint32_t)_rx8 >= 0x20200000u) arm_dcache_flush_delete(_rx8, in_size);
 	#endif
 }
 

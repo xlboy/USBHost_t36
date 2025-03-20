@@ -696,7 +696,9 @@ public:
 		uint8_t *buffer3=nullptr, uint8_t* buffer4=nullptr);
 	void setRXBuffers(uint8_t *buffer1, uint8_t *buffer2, uint8_t cb,
 		// extended to optionaly allow more buffers. 
-		uint8_t *buffer3=nullptr, uint8_t* buffer4=nullptr);
+		uint8_t *buffer3=nullptr, uint8_t* buffer4=nullptr, 
+		uint8_t *buffer5=nullptr, uint8_t* buffer6=nullptr,
+		uint8_t *buffer7=nullptr, uint8_t* buffer8=nullptr);
 
     bool sendControlPacket(uint32_t bmRequestType, uint32_t bRequest,
                            uint32_t wValue, uint32_t wIndex, uint32_t wLength, void *buf);
@@ -754,6 +756,10 @@ private:
 	uint8_t *_rx2 = nullptr;
 	uint8_t *_rx3 = nullptr;
 	uint8_t *_rx4 = nullptr;
+	uint8_t *_rx5 = nullptr;
+	uint8_t *_rx6 = nullptr;
+	uint8_t *_rx7 = nullptr;
+	uint8_t *_rx8 = nullptr;
 	uint8_t *_tx[4] = {nullptr, nullptr, nullptr, nullptr};
 	uint8_t _tx_state = 0;
 	uint8_t _tx_mask = 3;
